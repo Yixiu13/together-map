@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import {
   Download,
   ImagePlus,
+  Info,
   MapPinPlus,
   PenLine,
   Plus,
@@ -127,6 +128,22 @@ export function SettingsPanel({ open, onClose, store }: SettingsPanelProps) {
             <X className="h-4 w-4" />
           </button>
         </header>
+
+        <div className="flex items-start gap-2 border-b border-paper-line bg-paper-deep/40 px-6 py-2.5 text-[11px] leading-relaxed text-ink-soft">
+          <Info className="mt-0.5 h-3.5 w-3.5 shrink-0 text-rose" aria-hidden />
+          <span>
+            这里的修改只保存在本机浏览器，会盖过线上内容。
+            <button
+              type="button"
+              onClick={() => {
+                if (window.confirm('将丢弃本机的修改，改用站点最新内容？')) reset()
+              }}
+              className="ml-1 cursor-pointer text-rose underline decoration-rose/40 underline-offset-2 transition-colors duration-200 hover:decoration-rose"
+            >
+              加载站点最新内容
+            </button>
+          </span>
+        </div>
 
         <div className="flex-1 overflow-y-auto px-6 py-6">
           <Field label="在一起的那一天">
