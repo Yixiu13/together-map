@@ -1,14 +1,17 @@
 import { CalendarDays, MapPin } from 'lucide-react'
 import { Reveal } from '@/components/Reveal'
 import { SceneArt } from '@/components/SceneArt'
+import { fillTokens } from '@/lib/tokens'
+import type { TokenStats } from '@/lib/tokens'
 import { formatDate, formatShortDate, formatWeekday } from '@/lib/utils'
 import type { MemoryEntry } from '@/types'
 
 interface MemoirTimelineProps {
   memories: MemoryEntry[]
+  stats: TokenStats
 }
 
-export function MemoirTimeline({ memories }: MemoirTimelineProps) {
+export function MemoirTimeline({ memories, stats }: MemoirTimelineProps) {
   return (
     <ol className="relative space-y-20 pl-10 md:space-y-24 md:pl-0">
       <span
@@ -84,7 +87,7 @@ export function MemoirTimeline({ memories }: MemoirTimelineProps) {
               </p>
 
               <p className="mt-4 font-body text-[15px] leading-[2.1] text-ink/80">
-                {memory.body}
+                {fillTokens(memory.body, stats)}
               </p>
             </div>
           </Reveal>

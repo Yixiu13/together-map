@@ -189,6 +189,9 @@ export function SettingsPanel({ open, onClose, store }: SettingsPanelProps) {
             rows={4}
             className={`${INPUT} mt-3 resize-y leading-relaxed`}
           />
+          <p className="mt-1.5 text-[11px] leading-relaxed text-ink-soft/80">
+            {'可用占位符：{days} 在一起天数 · {years} 已过年数 · {cities} 城市数 · {chapters} 章节数 · {nextDays} 距下个周年'}
+          </p>
 
           <SubTitle>结束语</SubTitle>
           <textarea

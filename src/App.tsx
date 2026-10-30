@@ -9,6 +9,7 @@ import { SectionHeading } from '@/components/SectionHeading'
 import { SettingsPanel } from '@/components/SettingsPanel'
 import { SiteFooter } from '@/components/SiteFooter'
 import { SiteNav } from '@/components/SiteNav'
+import { useTokenStats } from '@/hooks/useTokenStats'
 import { formatDate } from '@/lib/utils'
 import { useSiteData } from '@/store/useSiteData'
 
@@ -19,6 +20,7 @@ const MemoryMap = lazy(() =>
 export default function App() {
   const store = useSiteData()
   const { data, sortedMemories, sortedStops } = store
+  const stats = useTokenStats(data)
   const [activeStopId, setActiveStopId] = useState<string | null>(null)
   const [panelOpen, setPanelOpen] = useState(false)
 
@@ -27,13 +29,14 @@ export default function App() {
       <SiteNav title={data.title} onEdit={() => setPanelOpen(true)} />
 
       <main>
-        <Hero data={data} />
+        <Hero data={data} stats={stats} />
 
         <section id="prologue" className="mx-auto w-full max-w-6xl px-6 py-24 sm:px-10">
           <LetterSection
             verticalLabel="写在前面"
             title="卷首 · 序"
             body={data.prologue}
+            stats={stats}
             signature={data.signature}
             dateLabel={formatDate(data.startDate)}
           />
@@ -81,7 +84,7 @@ export default function App() {
               />
             </Reveal>
             <div className="mt-16">
-              <MemoirTimeline memories={sortedMemories} />
+              <MemoirTimeline memories={sortedMemories} stats={stats} />
             </div>
           </div>
         </section>
@@ -106,6 +109,7 @@ export default function App() {
             verticalLabel="写在后面"
             title="卷尾 · 未完"
             body={data.epilogue}
+            stats={stats}
             signature={data.signature}
           />
         </section>

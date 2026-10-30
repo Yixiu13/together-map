@@ -1,10 +1,13 @@
 import { Reveal } from '@/components/Reveal'
+import { fillTokens } from '@/lib/tokens'
+import type { TokenStats } from '@/lib/tokens'
 import { cn } from '@/lib/utils'
 
 interface LetterSectionProps {
   verticalLabel: string
   title: string
   body: string
+  stats: TokenStats
   signature?: string
   dateLabel?: string
   className?: string
@@ -14,6 +17,7 @@ export function LetterSection({
   verticalLabel,
   title,
   body,
+  stats,
   signature,
   dateLabel,
   className,
@@ -34,7 +38,9 @@ export function LetterSection({
 
       <h2 className="font-script text-3xl text-ink sm:text-4xl">{title}</h2>
 
-      <p className="mt-6 font-body text-[15px] leading-[2.3] text-ink/85 sm:text-base">{body}</p>
+      <p className="mt-6 font-body text-[15px] leading-[2.3] text-ink/85 sm:text-base">
+        {fillTokens(body, stats)}
+      </p>
 
       {(signature || dateLabel) && (
         <div className="mt-10 flex flex-col items-end gap-1 text-sm text-ink-soft">

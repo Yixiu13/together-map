@@ -1,11 +1,14 @@
 import { BookOpen, Compass, Heart } from 'lucide-react'
 import { CountdownBoard } from '@/components/CountdownBoard'
 import { useNow } from '@/hooks/useNow'
+import { fillTokens } from '@/lib/tokens'
+import type { TokenStats } from '@/lib/tokens'
 import { formatDate } from '@/lib/utils'
 import type { SiteData } from '@/types'
 
 interface HeroProps {
   data: SiteData
+  stats: TokenStats
 }
 
 const DOTS = [
@@ -16,7 +19,7 @@ const DOTS = [
   { x: 208, y: 228 },
 ]
 
-export function Hero({ data }: HeroProps) {
+export function Hero({ data, stats }: HeroProps) {
   const now = useNow(1000)
 
   return (
@@ -70,7 +73,7 @@ export function Hero({ data }: HeroProps) {
           <p className="font-en-hand mt-2 text-3xl text-rose sm:text-4xl">Together, Map by Map</p>
 
           <p className="mt-6 max-w-xl font-body text-[15px] leading-relaxed text-ink-soft">
-            {data.subtitle}
+            {fillTokens(data.subtitle, stats)}
           </p>
 
           <div className="mt-8 flex items-center gap-6 font-body text-sm text-ink-soft">
